@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 import os
-from pysvnlook import SVNTransaction, PathPrefixMatch
+from SvnSentinel.pysvnlook import SVNTransaction, PathPrefixMatch
 SVNLOOK="/opt/subversion-1.7.1/bin/svnlook"
 
 ## Mechanism for bypassing commit checks
 BYPASS_MESSAGE_PREFIX = "<Maintenance>"  # "None" to disallow bypass
 BYPASS_ALLOWED_USERS = ("lsc", )  # "None" for no user restriction
+
+
+REJECT_BANNER = """
+*********************************************************************
+*                SVN Sentinel : COMMIT REJECTED                     *
+*********************************************************************
+"""
 
 ## Shell-style wildcards supported (not regex)
 # see http://docs.python.org/library/fnmatch.html
@@ -108,7 +115,8 @@ def run_checks(repos, txn, is_revision=False):
     try:
         check_restricted_paths(t)
     except InvalidCommitException as e:
-        return "Direct commits to %s is not allowed" % e.restricted_path
+        return "%s Reason: Direct commits to %s is not allowed" % \
+                (REJECT_BANNER, e.restricted_path)
 
     # ---- all other commits are considered valid ---
     return None
