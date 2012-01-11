@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
-from SvnSentinel.pysvnlook import SVNTransaction, PathPrefixMatch
-SVNLOOK="/opt/subversion-1.7.1/bin/svnlook"
+from SvnSentinel.pysvnlook import SVNTransaction
+from SvnSentinel.utils import PathPrefixMatch
 
 ## Mechanism for bypassing commit checks
 BYPASS_MESSAGE_PREFIX = "<Maintenance>"  # "None" to disallow bypass
