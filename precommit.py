@@ -1,58 +1,11 @@
 #!/usr/bin/env python
 import os
+import sys
+import imp
 import fnmatch
 import itertools
 from SvnSentinel.svntransaction import SVNTransaction
 from SvnSentinel.utils import PathPrefixMatch
-
-## Mechanism for bypassing commit checks
-BYPASS_MESSAGE_PREFIX = "<Maintenance>"  # "None" to disallow bypass
-BYPASS_ALLOWED_USERS = ("lsc", )  # "None" for no user restriction
-
-
-REJECT_BANNER = """
-*********************************************************************
-*                SVN Sentinel : COMMIT REJECTED                     *
-*********************************************************************
-"""
-
-## Shell-style wildcards supported (not regex)
-# see http://docs.python.org/library/fnmatch.html
-
-BRANCHING_PATHS = (
-    ("flame2/production/", "flame2/development/"),
-    ("flame2/production/", "flame2/branches/bugfix/b*/"),
-    ("flame2/development/", "flame2/branches/feature/f*/"),
-    ("flame2/production/", "flame2/tags/releases/*/"),
-)
-
-RELOCATION_PATHS = (
-    ("flame2/development/", "flame2/tags/milestones/ms*/"),
-    ("flame2/branches/bugfix/b*/", "flame2/branches/bugfix/merged/b*/"),
-    ("flame2/branches/feature/f*/", "flame2/branches/feature/merged/f*/"),
-    ("flame2/branches/experimental/e*/", "flame2/branches/experimental/archive/e*/"),
-)
-
-REINTEGRATION_PATHS = (
-    ("flame2/branches/feature/f*", "flame2/development/"),
-    ("flame2/branches/bugfix/b*", "flame2/production/"),
-    ("flame2/development/", "flame2/production/"),
-)
-
-# This list is seached once for each modified file, so we need to 
-# do this efficiently. A trie-based search is used. No wildcards allowed
-# for blacklisted dir, but can be used for the exception list.
-NO_DIRECT_COMMITS = (  
-    # (blacklisted_dir, (exceptions, ...))
-    ("flame2/production/", None),
-    ("flame2/development/", None),
-    ("flame2/tags/", None),
-    ("flame2/branches/", (
-            "feature/f*",
-            "experimental/e*",
-            "bugfix/b*",
-        )),
-)
 
 
 class RestrictedOperationException(Exception):
@@ -62,12 +15,25 @@ class AllowedOperationException(Exception):
     pass
 
 
-def get_config():
+def get_config(cfg_file):
+    try:
+        cfg_mod = imp.load_source("cfg_mod", cfg_file)
+        cfg = cfg_mod.precommit_config
+    except IOError:
+        sys.exit("Could not load config file: %s" % cfg_file)
+    except:
+        sys.exit("Invalid config file: %s" % cfg_file)
+        
     c = {}
-    c["BYPASS_MESSAGE_PREFIX"] = BYPASS_MESSAGE_PREFIX
-    c["BYPASS_ALLOWED_USERS"] = BYPASS_ALLOWED_USERS
-    c["REJECT_BANNER"] = REJECT_BANNER
+    c["BYPASS_MESSAGE_PREFIX"] = cfg.get("BYPASS_MESSAGE_PREFIX", None)
+    c["BYPASS_ALLOWED_USERS"] = cfg.get("BYPASS_ALLOWED_USERS", None)
+    c["REJECT_BANNER"] = cfg.get("REJECT_BANNER", "")
 
+    NO_DIRECT_COMMITS = cfg.get("NO_DIRECT_COMMITS", [])
+    BRANCHING_PATHS = cfg.get("BRANCHING_PATHS", [])
+    RELOCATION_PATHS = cfg.get("RELOCATION_PATHS", [])
+    REINTEGRATION_PATHS = cfg.get("REINTEGRATION_PATHS", [])
+    
     c["COMMIT_EXCEPTION_PATHS"] = dict(NO_DIRECT_COMMITS)  # dict to lookup exceptions
     # This list is seached once for each modified file, so we need to 
     # do this efficiently. A trie-based search is used. No wildcards allowed
@@ -152,7 +118,7 @@ def check_valid_merge(svn_txn, cfg):
     pass
 
     
-def run_checks(repos, txn, is_revision=False):
+def run_checks(cfg, repos, txn, is_revision=False):
     """
     Returns an error string if an invalid function found, else returns None.
     With the return value passed into sys.exit(), a None value translates
@@ -160,7 +126,7 @@ def run_checks(repos, txn, is_revision=False):
     exit (1) with the string itself written to stderr.
     """
     t = SVNTransaction(repos, txn, is_revision)
-    c = get_config()
+    c = cfg
     
     ## Add mechanism to bypass checks
     bypass_msg = c["BYPASS_MESSAGE_PREFIX"]
@@ -200,12 +166,20 @@ Run pre-commit checks on a repository transaction."""
     parser.add_option("-r", "--revision",
                     help="Test mode. TXN actually refers to a revision.",
                     action="store_true", default=False)
+    parser.add_option("-c", "--cfg",
+                    help="Configuration file to use",
+                    dest="cfg_file",
+                    metavar="FILE",
+                    default=os.path.join(os.getcwd(), "precommit_config.py"),
+                    )
+
     try:
         (opts, (repos, txn)) = parser.parse_args()
     except:
         return parser.print_help()
-    
-    return run_checks(repos, txn, opts.revision)
+
+    cfg = get_config(opts.cfg_file)
+    return run_checks(cfg, repos, txn, opts.revision)
 
 if __name__ == "__main__":
     import sys
