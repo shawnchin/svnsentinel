@@ -1,0 +1,98 @@
+id: 0-13.0-22.r22/0
+type: dir
+pred: 0-13.0-18.r18/0
+count: 2
+cpath: /branches/merged
+copyfrom: 21 /branches/feature/f13-another_thing
+
+PLAIN
+K 13
+f23-something
+V 18
+dir c-1.0-17.r17/0
+K 6
+merged
+V 16
+dir a-1.0.r1/307
+END
+ENDREP
+id: 9-1.0.r22/228
+type: dir
+pred: 9-1.0.r18/263
+count: 3
+text: 22 135 80 80 b24659a24043b7de653414e9f43c06b5
+cpath: /branches/feature
+copyroot: 0 /
+
+PLAIN
+K 10
+b234-dummy
+V 18
+dir c-1.0-12.r12/0
+K 6
+bugfix
+V 17
+dir 2-1.0.r20/269
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 17
+dir 9-1.0.r22/228
+K 6
+merged
+V 19
+dir 0-13.0-22.r22/0
+END
+ENDREP
+id: 0-1.0.r22/579
+type: dir
+pred: 0-1.0.r20/584
+count: 8
+text: 22 377 189 189 e341485ab8c0ef3b3ee2b44f2952e181
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r22/579
+K 5
+dummy
+V 16
+dir 0-13.0.r13/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r22/953
+type: dir
+pred: 0.0.r21/391
+count: 22
+text: 22 722 218 218 9f770f8aee5ff51a69dd01252174d9a6
+cpath: /
+copyroot: 0 /
+
+0-13.0-18.r18/0 delete-dir false false /branches/feature/f13-another_thing
+
+0-13._0.t21-l add-dir false false /branches/merged
+21 /branches/feature/f13-another_thing
+
+953 1085

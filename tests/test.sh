@@ -11,20 +11,24 @@ date > $LOG  # reset log file. prepend date
 
 TESTS=(
   # "rev_id  expected_rc test_label..."
-    "2 0 Adding file outside restricted path"
-    "4 0 Editing file outside restricted path"
-    "5 1 Adding file within restricted path"
-    "3 1 Editing file within restricted path"
-    "6 0 Testing bypass mechanism"
-    "7 1 Addding file within restricted path (not in e_list)"
-    "8 1 Adding dir matching root of an item in e_list"
-    "9 0 Adding file to path covered by e_list"
-    "10 1 Unauthorised branching into restricted path"
+    "2  0 Adding file outside restricted path"
+    "4  0 Editing file outside restricted path"
+    "5  1 Adding file within restricted path"
+    "3  1 Editing file within restricted path"
+    "6  0 Testing bypass mechanism"
+    "7  1 Addding file within restricted path (not in e_list)"
+    "8  1 Adding dir matching root of an item in e_list"
+    "9  0 Adding file to path covered by e_list"
     "12 1 Braching from valid source to invalid destination"
     "14 1 Braching from invalid source to valid destination"
     "16 0 Braching from valid source to valid destination"
     "17 0 Braching from valid source to valid destination (wildcard)"
     "18 1 Braching from invalid source to valid destination (wildcard)"
+    "19 0 Branching outside restricted path"
+    "20 1 Move from invalid source to valid destination"
+    "21 1 Move from valid source to invalid destination"
+    "24 0 Move from valid source to valid destination"
+    "23 0 Move outside restricted path"
 )
 
 TEST_FAILED=0

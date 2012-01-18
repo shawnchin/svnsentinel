@@ -1,0 +1,102 @@
+id: 0-13.0-20.r20/0
+type: dir
+pred: 0-13.0-19.r19/0
+count: 2
+cpath: /branches/bugfix/b12-asd
+copyfrom: 19 /dummy2
+
+PLAIN
+K 7
+123.txt
+V 15
+file 2-7.0.r7/0
+K 7
+b12-asd
+V 19
+dir 0-13.0-20.r20/0
+K 8
+b123-xyz
+V 16
+dir 2-8.0.r9/237
+K 6
+merged
+V 15
+dir 4-1.0.r1/51
+END
+ENDREP
+id: 2-1.0.r20/269
+type: dir
+pred: 2-1.0.r9/506
+count: 4
+text: 20 115 141 141 d57dd2c0e24fe13af7432b6aee1dec02
+cpath: /branches/bugfix
+copyroot: 0 /
+
+PLAIN
+K 10
+b234-dummy
+V 18
+dir c-1.0-12.r12/0
+K 6
+bugfix
+V 17
+dir 2-1.0.r20/269
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 17
+dir 9-1.0.r18/263
+END
+ENDREP
+id: 0-1.0.r20/584
+type: dir
+pred: 0-1.0.r18/579
+count: 7
+text: 20 418 153 153 a8724ca608739a7da05c81b3eddd7fd0
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r20/584
+K 11
+development
+V 18
+dir c-1.0-16.r16/0
+K 5
+dummy
+V 16
+dir 0-13.0.r13/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r20/957
+type: dir
+pred: 0.0.r19/360
+count: 20
+text: 20 727 217 217 af559b5f3330bb1e216a0003989a7e52
+cpath: /
+copyroot: 0 /
+
+0-13._0.t19-j add-dir false false /branches/bugfix/b12-asd
+19 /dummy2
+0-13.0-19.r19/0 delete-dir false false /dummy2
+
+
+957 1089

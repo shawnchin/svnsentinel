@@ -1,0 +1,50 @@
+id: 0-13.0-19.r19/0
+type: dir
+pred: 0-13.0.r13/0
+count: 1
+cpath: /dummy2
+copyfrom: 18 /dummy
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r18/579
+K 11
+development
+V 18
+dir c-1.0-16.r16/0
+K 5
+dummy
+V 16
+dir 0-13.0.r13/0
+K 6
+dummy2
+V 19
+dir 0-13.0-19.r19/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r19/360
+type: dir
+pred: 0.0.r18/952
+count: 19
+text: 19 94 253 253 2f95560de902d375ed0d5c2a5aeb736c
+cpath: /
+copyroot: 0 /
+
+0-13._0.t18-i add-dir false false /dummy2
+18 /dummy
+
+360 491

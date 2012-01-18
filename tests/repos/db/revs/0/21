@@ -1,0 +1,49 @@
+id: c-1.0-21.r21/0
+type: dir
+pred: c-1.0-16.r16/0
+count: 5
+text: 6 232 150 150 c181db233c743d08cd381e0d581a7ab7
+cpath: /experimental
+copyfrom: 20 /development
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r20/584
+K 5
+dummy
+V 16
+dir 0-13.0.r13/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r21/391
+type: dir
+pred: 0.0.r20/957
+count: 21
+text: 21 160 218 218 920faec9cfcd581b8490ebe45eba1005
+cpath: /
+copyroot: 0 /
+
+c-1.0-16.r16/0 delete-dir false false /development
+
+c-1._0.t20-k add-dir false false /experimental
+20 /development
+
+391 523
