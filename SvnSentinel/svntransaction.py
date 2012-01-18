@@ -59,31 +59,60 @@ class SVNTransaction(object):
     def is_merge_operation(self):
         """Detects if this is a merge operation.
 
-        Returns a tuple of (merge_src, merge_dest) if it is, None otherwise.
+        Returns a tuple of (merge_src, merge_dest, src_rev) if it is a merge
+        operation, or None otherwise.
         Note that the transaction must do only a merge, and not be combined
         with other operations.
+
+        Assumes all clients have mergeinfo capabilities (should be checked
+        by start-commit hook)
         """
         base = os.path.commonprefix(self.changes.keys())
+
+        # check if property has changed in base dir
         if base not in self.changes or not self.changes[base].prop_changed:
-            return None
+            return None  # definitely not a merge
 
-        raise NotImplementedException()
+        # check if the mergeinfo property has changed.
+        prev_rev = ""
+        if self.is_revision:
+            prev_rev = "-r %d" % (int(self.txn) - 1)
 
-    def _svnlook(self, subcommand="changed --copy-info", extra=""):
-        r_opt = ("--transaction", "--revision")[self.is_revision]
-        cmd = "%s %s %s %s %s %s" % (self.svnlook_cmd, subcommand,
-                                    r_opt, self.txn, self.repos, extra)
+        mergeinfo_old = self._call("%s propget %s svn:mergeinfo %s %s" % (
+                                        self.svnlook_cmd,
+                                        self.repos,
+                                        base,
+                                        prev_rev
+                                    ), exit_on_error=False)
+        mergeinfo_new = self._svnlook("propget", "svn:mergeinfo %s" % base,
+                                        exit_on_error=False)
+        if not mergeinfo_new or mergeinfo_old == mergeinfo_new:
+            return None  # mergeinfo has not changed
+
+        # looks like a merge. Return params in the expected format
+        latest_merge = mergeinfo_new.split("\n")[-1]
+        src, revs = latest_merge.split(":")
+        return ("%s/" % src[1:], base, revs.split("-")[-1])
+
+    def _call(self, cmd, exit_on_error=True):
         p = subprocess.Popen(cmd.split(),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
         out, err = p.communicate()
-        if err:
+        if err and exit_on_error:
             sys.exit("[ERROR] %s" % err)
         return out
 
+    def _svnlook(self, subcommand="changed --copy-info",
+                                        extra="", exit_on_error=True):
+        r_opt = ("--transaction", "--revision")[self.is_revision]
+        cmd = "%s %s %s %s %s %s" % (self.svnlook_cmd, subcommand,
+                                    r_opt, self.txn, self.repos, extra)
+        return self._call(cmd, exit_on_error=exit_on_error)
+
     def _load_changes(self):
         change_items = (SVNChangeItem(line.strip())
-                for line in re.split("\n(?=\w)", self._svnlook()))
+                            for line in re.split("\n(?=\w)", self._svnlook()))
         self.changes = dict((c.path, c) for c in change_items)
 
     def _load_info(self):

@@ -25,10 +25,14 @@ TESTS=(
     "17 0 Braching from valid source to valid destination (wildcard)"
     "18 1 Braching from invalid source to valid destination (wildcard)"
     "19 0 Branching outside restricted path"
+    "25 1 Valid branching followed by restricted edits"
     "20 1 Move from invalid source to valid destination"
     "21 1 Move from valid source to invalid destination"
     "24 0 Move from valid source to valid destination"
     "23 0 Move outside restricted path"
+    "31 0 Valid merge"
+    "32 1 Valid merge followed by manual edits"
+    "33 1 Propset on restricted path"
 )
 
 TEST_FAILED=0

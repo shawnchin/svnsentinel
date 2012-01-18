@@ -1,0 +1,67 @@
+PLAIN
+K 5
+dummy
+V 5
+hello
+K 13
+svn:mergeinfo
+V 52
+/branches/feature/f007-bond:29-30
+/development:25-31
+END
+ENDREP
+id: c-1.0.r33/114
+type: dir
+pred: c-1.0.r32/727
+count: 5
+text: 32 432 188 188 c8e65c76bc9789cc7f8a0c6ba8c7d0af
+props: 33 0 101 0 99ccb69391a00b77995fd1d170506c75
+cpath: /production
+copyroot: 0 /
+minfo-cnt: 1
+minfo-here: y
+
+PLAIN
+K 8
+branches
+V 18
+dir 0-1.0.r30/1989
+K 11
+development
+V 21
+dir c-1.0-25.r31/1229
+K 6
+dummy2
+V 19
+dir 0-13.0-23.r23/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 17
+dir c-1.0.r33/114
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r33/618
+type: dir
+pred: 0.0.r32/1231
+count: 33
+text: 33 337 268 268 308a0fa84090b8cba182e7b5daa32761
+cpath: /
+copyroot: 0 /
+minfo-cnt: 2
+
+c-1.0.t32-w modify-dir false true /production
+
+
+618 764

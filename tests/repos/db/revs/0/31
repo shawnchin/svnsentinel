@@ -1,0 +1,134 @@
+id: 1-5.0-25.r31/0
+type: file
+pred: 1-5.0-25.r25/46
+count: 3
+text: 30 0 32 20 40cfdc0574ba190465eca8d62142f9a5 e3ef62b168129468f38dd91767378d7a958c64a0 30-u/_3
+cpath: /development/bad.txt
+copyroot: 25 /development
+
+id: 9-26.0-25.r31/215
+type: file
+pred: 9-26.0-25.r26/0
+count: 1
+text: 30 53 18 6 9eb84090956c484e32cb6c08455a667b 003d0450f6f7e6db635a04d23245b68e13365463 30-u/_4
+cpath: /development/stuff/x.txt
+copyroot: 25 /development
+
+id: 4-30.0-31.r31/437
+type: file
+pred: 4-30.0-29.r30/621
+count: 1
+text: 30 91 18 6 9eb84090956c484e32cb6c08455a667b 003d0450f6f7e6db635a04d23245b68e13365463 29-t/_8
+cpath: /development/stuff/y.txt
+copyfrom: 30 /branches/feature/f007-bond/stuff/y.txt
+
+PLAIN
+K 5
+x.txt
+V 22
+file 9-26.0-25.r31/215
+K 5
+y.txt
+V 22
+file 4-30.0-31.r31/437
+END
+ENDREP
+id: 7-26.0-25.r31/781
+type: dir
+pred: 7-26.0-25.r26/249
+count: 1
+text: 31 688 80 80 305e93fd60cdfe253351261f26ac65bf
+cpath: /development/stuff
+copyroot: 25 /development
+
+PLAIN
+K 7
+bad.txt
+V 19
+file 1-5.0-25.r31/0
+K 9
+file1.txt
+V 16
+file d-1.0.r3/47
+K 9
+file2.txt
+V 18
+file f-1.0.r1/1084
+K 9
+file3.txt
+V 18
+file g-1.0.r1/1262
+K 5
+stuff
+V 21
+dir 7-26.0-25.r31/781
+END
+ENDREP
+PLAIN
+K 13
+svn:mergeinfo
+V 33
+/branches/feature/f007-bond:29-30
+END
+ENDREP
+id: c-1.0-25.r31/1229
+type: dir
+pred: c-1.0-25.r26/599
+count: 6
+text: 31 951 190 190 56bdd6f4c3df609222e7fbcdd200fb56
+props: 31 1154 62 0 5077afad7017a7e41b1cf496da393d59
+cpath: /development
+copyroot: 25 /development
+minfo-cnt: 1
+minfo-here: y
+
+PLAIN
+K 8
+branches
+V 18
+dir 0-1.0.r30/1989
+K 11
+development
+V 21
+dir c-1.0-25.r31/1229
+K 6
+dummy2
+V 19
+dir 0-13.0-23.r23/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r31/1754
+type: dir
+pred: 0.0.r30/2414
+count: 31
+text: 31 1474 267 267 58537d0b7d6dceb0cffafa159b100821
+cpath: /
+copyroot: 0 /
+minfo-cnt: 1
+
+c-1.0-25.t30-u modify-dir false true /development
+
+1-5.0-25.t30-u modify-file true false /development/bad.txt
+
+9-26.0-25.t30-u modify-file true false /development/stuff/x.txt
+
+4-30._0.t30-u add-file false false /development/stuff/y.txt
+30 /branches/feature/f007-bond/stuff/y.txt
+
+1754 1902

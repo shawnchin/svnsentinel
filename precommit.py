@@ -93,13 +93,13 @@ def check_restricted_paths(svn_txn, cfg):
 
 def check_valid_pairs(op, src_list, dst_map, cfg):
     if op:
-        src, dest = op
+        src, dest = op[:2]
         valid_sources = get_matched_patterns(src, src_list)
         dst_list = [dst_map[s] for s in valid_sources]
         valid_destinations = list(set(itertools.chain(*dst_list)))  # flatten
         if get_matched_patterns(dest, valid_destinations):
             raise AllowedOperationException
-        if cfg["NO_COMMIT_PATHS"].match(dest):
+        elif cfg["NO_COMMIT_PATHS"].match(dest):
             raise RestrictedOperationException( \
                     "Invalid branch/move to %s" % dest)
 
@@ -117,7 +117,13 @@ def check_valid_move(svn_txn, cfg):
 
 
 def check_valid_merge(svn_txn, cfg):
-    pass
+    try:
+        check_valid_pairs(svn_txn.is_merge_operation(),
+                        cfg["VALID_MERGE_SRCS"],
+                        cfg["VALID_MERGE_PATHS"], cfg)
+    except AllowedOperationException:
+        # TODO: more checks, e.g. check for manual edits after merge
+        raise AllowedOperationException
 
 
 def run_checks(cfg, repos, txn, is_revision=False):
