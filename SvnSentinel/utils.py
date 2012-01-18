@@ -1,7 +1,7 @@
 class PathPrefixMatch(object):
     """
     Trie-based path prefix mathching utility
-    
+
     Usage:
      path_prefixes = ("/hello/world/", "/test/")
      p = PathPrefixMatch(path_prefixes)
@@ -29,8 +29,8 @@ class PathPrefixMatch(object):
         return path.split(self.delim)
 
     def _is_end_node(self, node):
-        return node.has_key(self.delim)
-            
+        return (self.delim in node)
+
     def _get_deepest_match(self, target):
         """
         Returns tuple of (node, depth) where node is the deepest node that
@@ -39,24 +39,23 @@ class PathPrefixMatch(object):
         depth = 0
         node = self.root
         for s in target:
-            if not node.has_key(s):
+            if s not in node:
                 break
             else:
                 depth += 1
                 node = node[s]
         return (node, depth)
-        
+
     def add_path(self, path):
         assert type(path) is str
-        if not path: return  # reject empty path
-        
-        segments = self._split_path(path)
-        node, depth = self._get_deepest_match(segments)
-        for s in segments[depth:]:
-            node[s] = {}
-            node = node[s]
-        node[self.delim] = None  # use delim to mark end node
-            
+        if path:
+            segments = self._split_path(path)
+            node, depth = self._get_deepest_match(segments)
+            for s in segments[depth:]:
+                node[s] = {}
+                node = node[s]
+            node[self.delim] = None  # use delim to mark end node
+
     def match(self, target):
         """
         Returns matched path if target string starts with a registered path.
@@ -71,17 +70,14 @@ class PathPrefixMatch(object):
             return None
 
 
-
 if __name__ == "__main__":
     path_prefixes = ("/hello/world/", "/test/")
     p = PathPrefixMatch(path_prefixes)
-    p.add_path("/test2") # add another path
+    p.add_path("/test2")  # add another path
     p.add_path("flame2/branches/")
 
     assert p.match("/test2/drive/x.txt") == "/test2"
     assert p.match("/hello/world/") == "/hello/world"
-    assert p.match("/world/domination") == None 
-    assert p.match("/world/domination") == None 
+    assert p.match("/world/domination") == None
+    assert p.match("/world/domination") == None
     assert p.match("flame2/branches/bugfix/b123/") == "flame2/branches"
-
-

@@ -17,6 +17,7 @@ import sys
 import subprocess
 from operator import attrgetter
 
+
 class SVNTransaction(object):
     def __init__(self, repos, txn, is_revision=False, svnlook_cmd="svnlook"):
         self.is_revision = is_revision
@@ -25,28 +26,27 @@ class SVNTransaction(object):
         self.txn = txn
         self._load_changes()
         self._load_info()
-
         #print self._svnlook("propget", "svn:mergeinfo flame2/production")
-        
+
     def is_copy_operation(self):
         """Detects if this is a copy (branch/tag) operation.
 
         Returns a tuple of (copy_src, copy_dest) if it is, None otherwise.
-        Note that the transaction must do only a copy, and not be combined 
+        Note that the transaction must do only a copy, and not be combined
         with other operations.
         """
         if len(self.changes) == 1:
             item = self.changes.values()[0]
             if item.copied:
                 return (item.source, item.path)
-        
+
         return None
-        
+
     def is_move_operation(self):
         """Detects if this is a move operation.
 
         Returns a tuple of (move_src, move_dest) if it is, None otherwise.
-        Note that the transaction must do only a move, and not be combined 
+        Note that the transaction must do only a move, and not be combined
         with other operations.
         """
         if len(self.changes) == 2:
@@ -55,26 +55,26 @@ class SVNTransaction(object):
                 return (s.path, d.path)
 
         return None
-        
+
     def is_merge_operation(self):
         """Detects if this is a merge operation.
 
         Returns a tuple of (merge_src, merge_dest) if it is, None otherwise.
-        Note that the transaction must do only a merge, and not be combined 
+        Note that the transaction must do only a merge, and not be combined
         with other operations.
         """
         base = os.path.commonprefix(self.changes.keys())
         if base not in self.changes or not self.changes[base].prop_changed:
             return None
-            
+
         raise NotImplementedException()
 
     def _svnlook(self, subcommand="changed --copy-info", extra=""):
         r_opt = ("--transaction", "--revision")[self.is_revision]
-        cmd = "%s %s %s %s %s %s" % (self.svnlook_cmd, subcommand, 
+        cmd = "%s %s %s %s %s %s" % (self.svnlook_cmd, subcommand,
                                     r_opt, self.txn, self.repos, extra)
-        p = subprocess.Popen(cmd.split(), 
-                stdout=subprocess.PIPE, 
+        p = subprocess.Popen(cmd.split(),
+                stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
         out, err = p.communicate()
         if err:
@@ -93,7 +93,7 @@ class SVNTransaction(object):
     def __str__(self):
         return "%s\n%s\n%s" % (
             self.log,
-            "-"*len(self.log),
+            "-" * len(self.log),
             "\n".join(str(c) for c in self.changes.keys()))
 
 
@@ -102,10 +102,10 @@ class SVNChangeItem(object):
         assert change_line[0] in "ADU_"
         assert change_line[1] in "U "
         assert change_line[2] in "+ "
-        if change_line[2] == "+": assert change_line[0] == "A"
-        
-        self.status = change_line[0]
+        if change_line[2] == "+":
+            assert change_line[0] == "A"
 
+        self.status = change_line[0]
         self.added = (change_line[0] == "A" and change_line[2] == " ")
         self.deleted = (change_line[0] == "D")
         self.updated = (change_line[0] == "U")
@@ -130,7 +130,3 @@ class SVNChangeItem(object):
                 "U": "updated",
             }
             return "%s (%s)" % (self.path, status_map[self.status])
-        
-
-
-

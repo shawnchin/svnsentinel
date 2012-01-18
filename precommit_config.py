@@ -23,10 +23,14 @@ c["BRANCHING_PATHS"] = (
 )
 
 c["RELOCATION_PATHS"] = (
-    ("flame2/development/", "flame2/tags/milestones/ms*/"),
-    ("flame2/branches/bugfix/b*/", "flame2/branches/bugfix/merged/b*/"),
-    ("flame2/branches/feature/f*/", "flame2/branches/feature/merged/f*/"),
-    ("flame2/branches/experimental/e*/", "flame2/branches/experimental/archive/e*/"),
+    ("flame2/development/",
+            "flame2/tags/milestones/ms*/"),
+    ("flame2/branches/bugfix/b*/",
+            "flame2/branches/bugfix/merged/b*/"),
+    ("flame2/branches/feature/f*/",
+            "flame2/branches/feature/merged/f*/"),
+    ("flame2/branches/experimental/e*/",
+            "flame2/branches/experimental/archive/e*/"),
 )
 
 c["REINTEGRATION_PATHS"] = (
@@ -35,10 +39,10 @@ c["REINTEGRATION_PATHS"] = (
     ("flame2/development/", "flame2/production/"),
 )
 
-# This list is seached once for each modified file, so we need to 
+# This list is seached once for each modified file, so we need to
 # do this efficiently. A trie-based search is used. No wildcards allowed
 # for blacklisted dir, but can be used for the exception list.
-c["NO_DIRECT_COMMITS"] = (  
+c["NO_DIRECT_COMMITS"] = (
     # (blacklisted_dir, (exceptions, ...))
     ("flame2/production/", None),
     ("flame2/development/", None),
