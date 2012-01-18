@@ -1,0 +1,66 @@
+id: c-1.0-12.r12/0
+type: dir
+pred: c-1.0.r6/395
+count: 4
+text: 6 232 150 150 c181db233c743d08cd381e0d581a7ab7
+cpath: /branches/b234-dummy
+copyfrom: 11 /production
+
+PLAIN
+K 10
+b234-dummy
+V 18
+dir c-1.0-12.r12/0
+K 6
+bugfix
+V 16
+dir 2-1.0.r9/506
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 16
+dir 9-1.0.r1/440
+END
+ENDREP
+id: 0-1.0.r12/328
+type: dir
+pred: 0-1.0.r9/777
+count: 4
+text: 12 164 151 151 e56b9f0622ebb82073ad191c9f004994
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r12/328
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r12/627
+type: dir
+pred: 0.0.r11/156
+count: 12
+text: 12 470 144 144 a41ef9374e8599d38d5b755f8438cef3
+cpath: /
+copyroot: 0 /
+
+c-1._0.t11-b add-dir false false /branches/b234-dummy
+11 /production
+
+627 759

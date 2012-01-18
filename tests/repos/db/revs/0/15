@@ -1,0 +1,35 @@
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r12/328
+K 5
+dummy
+V 16
+dir 0-13.0.r13/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r15/189
+type: dir
+pred: 0.0.r14/330
+count: 15
+text: 15 0 176 176 fb472ef0b240bbb44e57d1cb1454c003
+cpath: /
+copyroot: 0 /
+
+0-13.0-14.r14/0 delete-dir false false /development
+
+
+189 319

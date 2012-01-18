@@ -1,0 +1,214 @@
+DELTA
+SVNENDREP
+DELTA
+SVNENDREP
+DELTA
+SVNENDREP
+id: 4-1.0.r1/51
+type: dir
+count: 0
+cpath: /branches/bugfix/merged
+copyroot: 0 /
+
+PLAIN
+K 6
+merged
+V 15
+dir 4-1.0.r1/51
+END
+ENDREP
+id: 2-1.0.r1/181
+type: dir
+count: 0
+text: 1 132 36 36 45f0fe499ceba6068a7601e34e268b77
+cpath: /branches/bugfix
+copyroot: 0 /
+
+id: a-1.0.r1/307
+type: dir
+count: 0
+cpath: /branches/feature/merged
+copyroot: 0 /
+
+PLAIN
+K 6
+merged
+V 16
+dir a-1.0.r1/307
+END
+ENDREP
+id: 9-1.0.r1/440
+type: dir
+count: 0
+text: 1 390 37 37 55de185ba487a590fb4725532e19ae01
+cpath: /branches/feature
+copyroot: 0 /
+
+id: 7-1.0.r1/567
+type: dir
+count: 0
+cpath: /branches/experimental/archive
+copyroot: 0 /
+
+PLAIN
+K 7
+archive
+V 16
+dir 7-1.0.r1/567
+END
+ENDREP
+id: 6-1.0.r1/707
+type: dir
+count: 0
+text: 1 656 38 38 cfab79f9f1fcdf0d1780feb415bd39e5
+cpath: /branches/experimental
+copyroot: 0 /
+
+PLAIN
+K 6
+bugfix
+V 16
+dir 2-1.0.r1/181
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 16
+dir 9-1.0.r1/440
+END
+ENDREP
+id: 0-1.0.r1/963
+type: dir
+count: 0
+text: 1 839 111 111 39cd1b446588d093e6dbbb446d6b9c9f
+cpath: /branches
+copyroot: 0 /
+
+id: f-1.0.r1/1084
+type: file
+count: 0
+text: 1 17 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_m
+cpath: /production/file2.txt
+copyroot: 0 /
+
+id: g-1.0.r1/1262
+type: file
+count: 0
+text: 1 34 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_n
+cpath: /production/file3.txt
+copyroot: 0 /
+
+id: d-1.0.r1/1440
+type: file
+count: 0
+text: 1 0 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 0-0/_l
+cpath: /production/file1.txt
+copyroot: 0 /
+
+PLAIN
+K 9
+file1.txt
+V 18
+file d-1.0.r1/1440
+K 9
+file2.txt
+V 18
+file f-1.0.r1/1084
+K 9
+file3.txt
+V 18
+file g-1.0.r1/1262
+END
+ENDREP
+id: c-1.0.r1/1748
+type: dir
+count: 0
+text: 1 1617 118 118 e72d40ffb0bc26d4f11c35d10d9d1960
+cpath: /production
+copyroot: 0 /
+
+id: i-1.0.r1/1873
+type: dir
+count: 0
+cpath: /tags/milestones
+copyroot: 0 /
+
+id: k-1.0.r1/1949
+type: dir
+count: 0
+cpath: /tags/releases
+copyroot: 0 /
+
+PLAIN
+K 10
+milestones
+V 17
+dir i-1.0.r1/1873
+K 8
+releases
+V 17
+dir k-1.0.r1/1949
+END
+ENDREP
+id: h-1.0.r1/2115
+type: dir
+count: 0
+text: 1 2023 79 79 297f899d10b5ea7ce124147a43609d48
+cpath: /tags
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 16
+dir 0-1.0.r1/963
+K 10
+production
+V 17
+dir c-1.0.r1/1748
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+END
+ENDREP
+id: 0.0.r1/2355
+type: dir
+pred: 0.0.r0/17
+count: 1
+text: 1 2232 110 110 0e01da58b3293664fc9d11a318223299
+cpath: /
+copyroot: 0 /
+
+_9.0.t0-0 add-dir false false /branches/feature
+
+_i.0.t0-0 add-dir false false /tags/milestones
+
+_k.0.t0-0 add-dir false false /tags/releases
+
+_6.0.t0-0 add-dir false false /branches/experimental
+
+_7.0.t0-0 add-dir false false /branches/experimental/archive
+
+_a.0.t0-0 add-dir false false /branches/feature/merged
+
+_d.0.t0-0 add-file true false /production/file1.txt
+
+_0.0.t0-0 add-dir false false /branches
+
+_f.0.t0-0 add-file true false /production/file2.txt
+
+_c.0.t0-0 add-dir false false /production
+
+_g.0.t0-0 add-file true false /production/file3.txt
+
+_2.0.t0-0 add-dir false false /branches/bugfix
+
+_4.0.t0-0 add-dir false false /branches/bugfix/merged
+
+_h.0.t0-0 add-dir false false /tags
+
+
+2355 2484

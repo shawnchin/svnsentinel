@@ -1,0 +1,38 @@
+id: 0-2.0.r2/0
+type: file
+count: 0
+text: 1 17 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 1-1/_2
+cpath: /top.txt
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 16
+dir 0-1.0.r1/963
+K 10
+production
+V 17
+dir c-1.0.r1/1748
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 15
+file 0-2.0.r2/0
+END
+ENDREP
+id: 0.0.r2/318
+type: dir
+pred: 0.0.r1/2355
+count: 2
+text: 2 162 143 143 328d24381d9aceedaec6877513781400
+cpath: /
+copyroot: 0 /
+
+_0.0.t1-1 add-file true false /top.txt
+
+
+318 447

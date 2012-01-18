@@ -1,0 +1,99 @@
+id: 3-9.0.r9/0
+type: file
+count: 0
+text: 1 17 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 8-8/_5
+cpath: /branches/bugfix/b123-xyz/abc.txt
+copyroot: 0 /
+
+PLAIN
+K 7
+abc.txt
+V 15
+file 3-9.0.r9/0
+END
+ENDREP
+id: 2-8.0.r9/237
+type: dir
+pred: 2-8.0.r8/0
+count: 1
+text: 9 187 37 37 42be60d046e10cc7515b6a2c7b19d737
+cpath: /branches/bugfix/b123-xyz
+copyroot: 0 /
+
+PLAIN
+K 7
+123.txt
+V 15
+file 2-7.0.r7/0
+K 8
+b123-xyz
+V 16
+dir 2-8.0.r9/237
+K 6
+merged
+V 15
+dir 4-1.0.r1/51
+END
+ENDREP
+id: 2-1.0.r9/506
+type: dir
+pred: 2-1.0.r8/197
+count: 3
+text: 9 389 104 104 4e9944fdc2e4f0d0ea50f852ec415a18
+cpath: /branches/bugfix
+copyroot: 0 /
+
+PLAIN
+K 6
+bugfix
+V 16
+dir 2-1.0.r9/506
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 16
+dir 9-1.0.r1/440
+END
+ENDREP
+id: 0-1.0.r9/777
+type: dir
+pred: 0-1.0.r8/467
+count: 3
+text: 9 653 111 111 3c91c5312135988a713e8786bb7ee89b
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 16
+dir 0-1.0.r9/777
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r9/1073
+type: dir
+pred: 0.0.r8/763
+count: 9
+text: 9 917 143 143 d36d8b7fbf3be9c8b0d84324328f2620
+cpath: /
+copyroot: 0 /
+
+_3.0.t8-8 add-file true false /branches/bugfix/b123-xyz/abc.txt
+
+
+1073 1202

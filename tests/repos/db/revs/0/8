@@ -1,0 +1,83 @@
+id: 2-8.0.r8/0
+type: dir
+count: 0
+cpath: /branches/bugfix/b123-xyz
+copyroot: 0 /
+
+PLAIN
+K 7
+123.txt
+V 15
+file 2-7.0.r7/0
+K 8
+b123-xyz
+V 14
+dir 2-8.0.r8/0
+K 6
+merged
+V 15
+dir 4-1.0.r1/51
+END
+ENDREP
+id: 2-1.0.r8/197
+type: dir
+pred: 2-1.0.r7/260
+count: 2
+text: 8 82 102 102 3fcf99fe1083eaa74242c7bd9bd9d8ee
+cpath: /branches/bugfix
+copyroot: 0 /
+
+PLAIN
+K 6
+bugfix
+V 16
+dir 2-1.0.r8/197
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 16
+dir 9-1.0.r1/440
+END
+ENDREP
+id: 0-1.0.r8/467
+type: dir
+pred: 0-1.0.r7/529
+count: 2
+text: 8 343 111 111 14cfa8ed92ea3d679726a23f3191beac
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 16
+dir 0-1.0.r8/467
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r8/763
+type: dir
+pred: 0.0.r7/825
+count: 8
+text: 8 607 143 143 9cd014b1bf1dbf1ac08408ee24ce7244
+cpath: /
+copyroot: 0 /
+
+_2.0.t7-7 add-dir false false /branches/bugfix/b123-xyz
+
+
+763 891

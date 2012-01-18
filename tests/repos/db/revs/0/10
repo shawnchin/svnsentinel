@@ -1,0 +1,43 @@
+id: 6-1.0-10.r10/0
+type: dir
+pred: 6-1.0.r1/707
+count: 1
+text: 1 656 38 38 cfab79f9f1fcdf0d1780feb415bd39e5
+cpath: /development
+copyfrom: 1 /branches/experimental
+
+PLAIN
+K 8
+branches
+V 16
+dir 0-1.0.r9/777
+K 11
+development
+V 18
+dir 6-1.0-10.r10/0
+K 10
+production
+V 16
+dir c-1.0.r6/395
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r10/361
+type: dir
+pred: 0.0.r9/1073
+count: 10
+text: 10 164 184 184 ef2651796e5ad337a187a0b4214e84fa
+cpath: /
+copyroot: 0 /
+
+6-1._0.t9-9 add-dir false false /development
+1 /branches/experimental
+
+361 493
