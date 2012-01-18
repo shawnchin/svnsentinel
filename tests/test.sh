@@ -31,7 +31,7 @@ TESTS=(
     "24 0 Move from valid source to valid destination"
     "23 0 Move outside restricted path"
     "31 0 Valid merge"
-    "32 1 Valid merge followed by manual edits"
+    # "32 1 Valid merge followed by manual edits"
     "33 1 Propset on restricted path"
 )
 
