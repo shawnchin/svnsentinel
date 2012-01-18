@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import os
-from SvnSentinel.pysvnlook import SVNTransaction
+import fnmatch
+import itertools
+from SvnSentinel.svntransaction import SVNTransaction
 from SvnSentinel.utils import PathPrefixMatch
 
 ## Mechanism for bypassing commit checks
@@ -19,16 +21,16 @@ REJECT_BANNER = """
 
 BRANCHING_PATHS = (
     ("flame2/production/", "flame2/development/"),
-    ("flame2/production/", "flame2/branches/bugfix/b*"),
-    ("flame2/development/", "flame2/branches/feature/f*"),
-    ("flame2/production/", "flame2/tags/releases/*"),
+    ("flame2/production/", "flame2/branches/bugfix/b*/"),
+    ("flame2/development/", "flame2/branches/feature/f*/"),
+    ("flame2/production/", "flame2/tags/releases/*/"),
 )
 
 RELOCATION_PATHS = (
-    ("flame2/development/", "flame2/tags/milestones/ms*"),
-    ("flame2/branches/bugfix/b*", "flame2/branches/bugfix/merged/b*"),
-    ("flame2/branches/feature/f*", "flame2/branches/feature/merged/f*"),
-    ("flame2/branches/experimental/e*", "flame2/branches/experimental/archive/e*"),
+    ("flame2/development/", "flame2/tags/milestones/ms*/"),
+    ("flame2/branches/bugfix/b*/", "flame2/branches/bugfix/merged/b*/"),
+    ("flame2/branches/feature/f*/", "flame2/branches/feature/merged/f*/"),
+    ("flame2/branches/experimental/e*/", "flame2/branches/experimental/archive/e*/"),
 )
 
 REINTEGRATION_PATHS = (
@@ -52,44 +54,103 @@ NO_DIRECT_COMMITS = (
         )),
 )
 
-class InvalidCommitException(Exception):
-    def __init__(self, restricted_path, message=None):
-        Exception.__init__(self, message)
-        self.restricted_path = restricted_path
+
+class RestrictedOperationException(Exception):
+    pass
+
+class AllowedOperationException(Exception):
+    pass
 
 
-from fnmatch import filter
-from itertools import chain
-def glob_match(filenames, patterns, prefix_len=0):
+def get_config():
+    c = {}
+    c["BYPASS_MESSAGE_PREFIX"] = BYPASS_MESSAGE_PREFIX
+    c["BYPASS_ALLOWED_USERS"] = BYPASS_ALLOWED_USERS
+    c["REJECT_BANNER"] = REJECT_BANNER
+
+    c["COMMIT_EXCEPTION_PATHS"] = dict(NO_DIRECT_COMMITS)  # dict to lookup exceptions
+    # This list is seached once for each modified file, so we need to 
+    # do this efficiently. A trie-based search is used. No wildcards allowed
+    c["NO_COMMIT_PATHS"] = PathPrefixMatch(c["COMMIT_EXCEPTION_PATHS"].keys())
+
+    def get_dict_of_lists(path_pairs):
+        "store v in lists as there may be duplicate keys"
+        d = {}
+        for k, v in path_pairs:
+            d.setdefault(k, []).append(v)
+        return d
+            
+    c["VALID_BRANCH_PATHS"] = get_dict_of_lists(BRANCHING_PATHS)
+    c["VALID_BRANCH_SRCS"] = c["VALID_BRANCH_PATHS"].keys()
+
+    c["VALID_MOVE_PATHS"] = get_dict_of_lists(RELOCATION_PATHS)
+    c["VALID_MOVE_SRCS"] = c["VALID_MOVE_PATHS"].keys()
+
+    c["VALID_MERGE_PATHS"] = get_dict_of_lists(REINTEGRATION_PATHS)
+    c["VALID_MERGE_SRCS"] = c["VALID_MERGE_PATHS"].keys()
+
+    return c
+
+    
+def glob_filter(filenames, patterns, prefix_len=0):
+    """
+    Given a list of filenames and a list of patterns, return True if any of
+    the files match any of the patterns.
+    """
     files = filenames
     if prefix_len:
         files = [f[prefix_len:] for f in filenames]
-    matched = [filter(files, p) for p in patterns]
-    return list(set(chain(*matched)))  # return flat list with no repetitions
+    matched = [fnmatch.filter(files, p) for p in patterns]
+    return list(set(itertools.chain(*matched)))  # return flat list with no repetitions
 
 
-def check_valid_branching(svn_txn):
-    try:
-        src, dest = svn_txn.is_copy_operation()
-    except TypeError:
-        return None
-    d = dict(BRANCHING_PATHS)
+def get_matched_patterns(file, patterns):
+    return [p for p in patterns if fnmatch.fnmatch(file, p)]
+
     
-        
-def check_restricted_paths(svn_txn):
+def check_restricted_paths(svn_txn, cfg):
     c = {}
     for f in svn_txn.changes.keys():
         c.setdefault(os.path.dirname(f) + "/", []).append(f)
 
-    # build blocklist
-    blist = dict(NO_DIRECT_COMMITS)  # dict to lookup exceptions
-    taboo_paths = PathPrefixMatch(blist.keys())
+    blist = cfg["COMMIT_EXCEPTION_PATHS"]
+    taboo_paths = cfg["NO_COMMIT_PATHS"]
     for base in c:
         d = taboo_paths.match(base)
         D = str(d) + "/"  # same thing, but with trailing "/"
-        if d and (not blist[D] or not glob_match(c[base], blist[D], len(D))):
-            raise InvalidCommitException(d)
-        
+        if d and (not blist[D] or not glob_filter(c[base], blist[D], len(D))):
+            raise RestrictedOperationException( \
+                    "Direct commits to %s is not allowed" % d)
+
+
+def check_valid_pairs(op, src_list, dst_map, cfg):
+    if op:
+        src, dest = op
+        valid_sources = get_matched_patterns(src, src_list)
+        dst_list = [dst_map[s] for s in valid_sources]
+        valid_destinations =  list(set(itertools.chain(*dst_list)))  # flatten
+        if get_matched_patterns(dest, valid_destinations):
+            raise AllowedOperationException
+        if cfg["NO_COMMIT_PATHS"].match(dest):
+            raise RestrictedOperationException( \
+                    "Invalid branch/move to %s" % dest)
+
+            
+def check_valid_branching(svn_txn, cfg):
+    check_valid_pairs(svn_txn.is_copy_operation(),
+                        cfg["VALID_BRANCH_SRCS"],
+                        cfg["VALID_BRANCH_PATHS"], cfg)
+
+
+def check_valid_move(svn_txn, cfg):
+    check_valid_pairs(svn_txn.is_move_operation(),
+                        cfg["VALID_MOVE_SRCS"],
+                        cfg["VALID_MOVE_PATHS"], cfg)
+
+                
+def check_valid_merge(svn_txn, cfg):
+    pass
+
     
 def run_checks(repos, txn, is_revision=False):
     """
@@ -99,28 +160,37 @@ def run_checks(repos, txn, is_revision=False):
     exit (1) with the string itself written to stderr.
     """
     t = SVNTransaction(repos, txn, is_revision)
-
+    c = get_config()
+    
     ## Add mechanism to bypass checks
-    if BYPASS_MESSAGE_PREFIX and t.log.startswith(BYPASS_MESSAGE_PREFIX):
-        if BYPASS_ALLOWED_USERS is None:  # No user restriction
+    bypass_msg = c["BYPASS_MESSAGE_PREFIX"]
+    bypass_users = c["BYPASS_ALLOWED_USERS"]
+    if bypass_msg and t.log.startswith(bypass_msg):
+        if bypass_users is None:  # No user restriction
             return None
-        assert type(BYPASS_ALLOWED_USERS) in (list, tuple)
-        if t.author in BYPASS_ALLOWED_USERS:
+        assert type(bypass_users) in (list, tuple)
+        if t.author in bypass_users:
             return None
     
-    # ---- check for white-listed actions ----
-    
-
-    # ---- check for blacklisted commits ----
     try:
-        check_restricted_paths(t)
-    except InvalidCommitException as e:
-        return "%s Reason: Direct commits to %s is not allowed" % \
-                (REJECT_BANNER, e.restricted_path)
+        # check for white-listed actions
+        check_valid_branching(t, c)
+        check_valid_move(t, c)
+        check_valid_merge(t, c)
+        
+        # check for blacklisted actions
+        check_restricted_paths(t, c)
 
-    # ---- all other commits are considered valid ---
-    return None
-    
+    except AllowedOperationException:
+        return None
+        
+    except RestrictedOperationException as e:
+        return "%s %s" % (c["REJECT_BANNER"], e.message)
+        
+    else:
+        return None
+
+        
 def main():
     usage = """usage: %prog REPOS TXN
 

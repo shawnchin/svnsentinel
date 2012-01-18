@@ -37,7 +37,7 @@ class SVNTransaction(object):
         """
         if len(self.changes) == 1:
             item = self.changes.values()[0]
-            if item.change:
+            if item.copied:
                 return (item.source, item.path)
         
         return None
