@@ -90,7 +90,7 @@ def run_checks(cfg, repos, txn, is_revision=False):
     except AllowedOperationException:
         return None
 
-    except RestrictedOperationException as e:
+    except RestrictedOperationException, e:
         return "%s%s" % (c["REJECT_BANNER"], e.get_message())
 
     else:
