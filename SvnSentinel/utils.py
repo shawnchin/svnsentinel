@@ -1,3 +1,9 @@
+import os
+import imp
+import fnmatch
+import itertools
+
+
 class PathPrefixMatch(object):
     """
     Trie-based path prefix mathching utility
@@ -68,6 +74,75 @@ class PathPrefixMatch(object):
             return (mp, self.delim)[mp == ""]
         else:
             return None
+
+
+def get_dict_of_lists(path_pairs, inverse=False):
+    "store v in lists as there may be duplicate keys"
+    d = {}
+    for k, v in path_pairs:
+        if inverse:
+            k, v = v, k
+        d.setdefault(k, []).append(v)
+    return d
+
+
+def get_config(cfg_file):
+    try:
+        cfg_mod = imp.load_source("cfg_mod", cfg_file)
+        cfg = cfg_mod.precommit_config
+    except IOError:
+        sys.exit("Could not load config file: %s" % cfg_file)
+    except:
+        sys.exit("Invalid config file: %s" % cfg_file)
+
+    c = {}
+    c["BYPASS_MESSAGE_PREFIX"] = cfg.get("BYPASS_MESSAGE_PREFIX", None)
+    c["BYPASS_ALLOWED_USERS"] = cfg.get("BYPASS_ALLOWED_USERS", None)
+    c["REJECT_BANNER"] = cfg.get("REJECT_BANNER", "")
+
+    NO_DIRECT_COMMITS = cfg.get("NO_DIRECT_COMMITS", [])
+    BRANCHING_PATHS = cfg.get("BRANCHING_PATHS", [])
+    RELOCATION_PATHS = cfg.get("RELOCATION_PATHS", [])
+    REINTEGRATION_PATHS = cfg.get("REINTEGRATION_PATHS", [])
+
+    c["COMMIT_EXCEPTION_PATHS"] = dict(NO_DIRECT_COMMITS)
+
+    # This list is seached once for each modified file, so we need to
+    # do this efficiently. A trie-based search is used. No wildcards allowed
+    c["NO_COMMIT_PATHS"] = PathPrefixMatch(c["COMMIT_EXCEPTION_PATHS"].keys())
+
+    c["VALID_BRANCH_PATHS"] = get_dict_of_lists(BRANCHING_PATHS)
+    c["VALID_BRANCH_SRCS"] = c["VALID_BRANCH_PATHS"].keys()
+    c["VALID_BRANCH_PATHS_REV"] = get_dict_of_lists(BRANCHING_PATHS, True)
+    c["VALID_BRANCH_DEST"] = c["VALID_BRANCH_PATHS_REV"].keys()
+
+    c["VALID_MOVE_PATHS"] = get_dict_of_lists(RELOCATION_PATHS)
+    c["VALID_MOVE_SRCS"] = c["VALID_MOVE_PATHS"].keys()
+    c["VALID_MOVE_PATHS_REV"] = get_dict_of_lists(RELOCATION_PATHS, True)
+    c["VALID_MOVE_DEST"] = c["VALID_MOVE_PATHS_REV"].keys()
+
+    c["VALID_MERGE_PATHS"] = get_dict_of_lists(REINTEGRATION_PATHS)
+    c["VALID_MERGE_SRCS"] = c["VALID_MERGE_PATHS"].keys()
+    c["VALID_MERGE_PATHS_REV"] = get_dict_of_lists(REINTEGRATION_PATHS, True)
+    c["VALID_MERGE_DEST"] = c["VALID_MERGE_PATHS_REV"].keys()
+
+    return c
+
+
+def glob_filter(filenames, patterns, prefix_len=0):
+    """
+    Given a list of filenames and a list of patterns, return a list of
+    files that matches any of the patterns.
+    """
+    files = filenames
+    if prefix_len:
+        files = [f[prefix_len:] for f in filenames]
+    matched = [fnmatch.filter(files, p) for p in patterns]
+    return list(set(itertools.chain(*matched)))  # return flattened list
+
+
+def get_matched_patterns(file, patterns):
+    return [p for p in patterns if fnmatch.fnmatch(file, p)]
 
 
 if __name__ == "__main__":

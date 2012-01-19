@@ -2,18 +2,18 @@ c = precommit_config = {}
 
 ## Banner to display along with the error message on commit rejection
 c["REJECT_BANNER"] = """
-*********************************************************************
-*                SVN Sentinel : COMMIT REJECTED                     *
-*********************************************************************
+=====================================================================
+                 SVN Sentinel : COMMIT REJECTED
+=====================================================================
 """
 
 ## Allow commits to bypass checks if it the commit message starts with
 ## a specific text. Defaults to None (disable bypass mechanism)
-c["BYPASS_MESSAGE_PREFIX"] = "<Maintenance>" 
+c["BYPASS_MESSAGE_PREFIX"] = "<Maintenance>"
 
 ## If bypass mechanism is enable, limit it to a list of authorised
 ## users. Defaults to None (no user restrictions)
-c["BYPASS_ALLOWED_USERS"] = None  
+c["BYPASS_ALLOWED_USERS"] = None
 
 
 ## Specifies list of paths that are blacklist, i.e. changes cannot be
@@ -60,7 +60,8 @@ c["RELOCATION_PATHS"] = (
     ("development/", "tags/milestones/ms[0-9]*/"),
     ("branches/bugfix/b[0-9]*/", "branches/bugfix/merged/b[0-9]*/"),
     ("branches/feature/f[0-9]*/", "branches/feature/merged/f[0-9]*/"),
-    ("branches/experimental/e[0-9]*/", "branches/experimental/archive/e[0-9]*/"),
+    ("branches/experimental/e[0-9]*/",
+        "branches/experimental/archive/e[0-9]*/"),
 )
 
 ## Whitelisted merge paths. If not whitelisted, merge operations
@@ -74,5 +75,3 @@ c["REINTEGRATION_PATHS"] = (
     ("branches/bugfix/b[0-9]*/", "production/"),
     ("development/", "production/"),
 )
-
-

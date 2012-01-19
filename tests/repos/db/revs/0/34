@@ -1,0 +1,120 @@
+id: 3-34.0.r34/0
+type: file
+count: 0
+text: 1 17 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 33-x/_5
+cpath: /branches/feature/merged/eeek.txt
+copyroot: 0 /
+
+PLAIN
+K 8
+eeek.txt
+V 17
+file 3-34.0.r34/0
+K 13
+f23-something
+V 18
+dir c-1.0-24.r24/0
+END
+ENDREP
+id: a-1.0.r34/286
+type: dir
+pred: a-1.0.r24/264
+count: 2
+text: 34 190 83 83 183cc4fcca70947c709ec265a7875484
+cpath: /branches/feature/merged
+copyroot: 0 /
+
+PLAIN
+K 9
+f007-bond
+V 21
+dir c-1.0-29.r30/1349
+K 6
+merged
+V 17
+dir a-1.0.r34/286
+END
+ENDREP
+id: 9-1.0.r34/534
+type: dir
+pred: 9-1.0.r30/1635
+count: 10
+text: 34 442 79 79 0563cba0b7b50b74fca1814820558f49
+cpath: /branches/feature
+copyroot: 0 /
+
+PLAIN
+K 10
+b234-dummy
+V 18
+dir c-1.0-12.r12/0
+K 6
+bugfix
+V 17
+dir 2-1.0.r20/269
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 17
+dir 9-1.0.r34/534
+K 6
+merged
+V 19
+dir 0-13.0-22.r22/0
+END
+ENDREP
+id: 0-1.0.r34/887
+type: dir
+pred: 0-1.0.r30/1989
+count: 15
+text: 34 685 189 189 b499eb689c1eebb91301cbb18cf9b143
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r34/887
+K 11
+development
+V 21
+dir c-1.0-25.r31/1229
+K 6
+dummy2
+V 19
+dir 0-13.0-23.r23/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 17
+dir c-1.0.r33/114
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r34/1312
+type: dir
+pred: 0.0.r33/618
+count: 34
+text: 34 1032 267 267 812b78156bfd63b44f392b90adc0fe0d
+cpath: /
+copyroot: 0 /
+minfo-cnt: 2
+
+_3.0.t33-x add-file true false /branches/feature/merged/eeek.txt
+
+
+1312 1459

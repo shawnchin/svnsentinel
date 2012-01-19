@@ -15,6 +15,7 @@ TESTS=(
     "4  0 Editing file outside restricted path"
     "5  1 Adding file within restricted path"
     "3  1 Editing file within restricted path"
+    "34 1 Adding file within subdir of restricted path"
     "6  0 Testing bypass mechanism"
     "7  1 Addding file within restricted path (not in e_list)"
     "8  1 Adding dir matching root of an item in e_list"
