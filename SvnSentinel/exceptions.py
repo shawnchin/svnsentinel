@@ -8,7 +8,10 @@ class AllowedOperationException(Exception):
 
 class RestrictedOperationException(Exception):
     def __init__(self, message, dest, cfg):
-        super(RestrictedOperationException, self).__init__(message)
+        # Exception in Python < 2.5 is not a new-style class so we
+        # cannot use super().
+        # super(RestrictedOperationException, self).__init__(message)
+        self.message = message
         self._path = dest
         self._cfg = cfg
 
