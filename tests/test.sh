@@ -34,6 +34,7 @@ TESTS=(
     "31 0 Valid merge"
     # "32 1 Valid merge followed by manual edits"
     "33 1 Propset on restricted path"
+    "36 0 Propset on allowed path"
 )
 
 TEST_FAILED=0

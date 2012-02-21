@@ -1,0 +1,110 @@
+PLAIN
+K 4
+test
+V 3
+123
+END
+ENDREP
+id: c-1.0-29.r36/34
+type: dir
+pred: c-1.0-29.r30/1349
+count: 8
+text: 30 1144 192 192 53966e5980465d2561ebc170280d6030
+props: 36 0 21 0 b0554f6d1c7aa94756f82a9ab88c4788
+cpath: /branches/feature/f007-bond
+copyroot: 29 /branches/feature/f007-bond
+
+PLAIN
+K 9
+f007-bond
+V 19
+dir c-1.0-29.r36/34
+K 6
+merged
+V 17
+dir a-1.0.r34/286
+END
+ENDREP
+id: 9-1.0.r36/369
+type: dir
+pred: 9-1.0.r34/534
+count: 11
+text: 36 279 77 77 1e20560a72df9113b7d0451362160ba8
+cpath: /branches/feature
+copyroot: 0 /
+
+PLAIN
+K 10
+b234-dummy
+V 19
+dir c-1.0-12.r35/34
+K 6
+bugfix
+V 17
+dir 2-1.0.r20/269
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 17
+dir 9-1.0.r36/369
+K 6
+merged
+V 19
+dir 0-13.0-22.r22/0
+END
+ENDREP
+id: 0-1.0.r36/722
+type: dir
+pred: 0-1.0.r35/463
+count: 17
+text: 36 519 190 190 75e640a2f1f8236b9f2aa3aea250e42c
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r36/722
+K 11
+development
+V 21
+dir c-1.0-25.r31/1229
+K 6
+dummy2
+V 19
+dir 0-13.0-23.r23/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 17
+dir c-1.0.r33/114
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r36/1146
+type: dir
+pred: 0.0.r35/887
+count: 36
+text: 36 866 267 267 5e2a28ccc0533308aea5b77538784a6a
+cpath: /
+copyroot: 0 /
+minfo-cnt: 2
+
+c-1.0-29.t35-z modify-dir false true /branches/feature/f007-bond
+
+
+1146 1292

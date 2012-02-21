@@ -1,0 +1,91 @@
+PLAIN
+K 4
+test
+V 3
+123
+END
+ENDREP
+id: c-1.0-12.r35/34
+type: dir
+pred: c-1.0-12.r12/0
+count: 5
+text: 6 232 150 150 c181db233c743d08cd381e0d581a7ab7
+props: 35 0 21 0 b0554f6d1c7aa94756f82a9ab88c4788
+cpath: /branches/b234-dummy
+copyroot: 12 /branches/b234-dummy
+
+PLAIN
+K 10
+b234-dummy
+V 19
+dir c-1.0-12.r35/34
+K 6
+bugfix
+V 17
+dir 2-1.0.r20/269
+K 12
+experimental
+V 16
+dir 6-1.0.r1/707
+K 7
+feature
+V 17
+dir 9-1.0.r34/534
+K 6
+merged
+V 19
+dir 0-13.0-22.r22/0
+END
+ENDREP
+id: 0-1.0.r35/463
+type: dir
+pred: 0-1.0.r34/887
+count: 16
+text: 35 260 190 190 3f633f407ec7e380143d0da93e26f41b
+cpath: /branches
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 17
+dir 0-1.0.r35/463
+K 11
+development
+V 21
+dir c-1.0-25.r31/1229
+K 6
+dummy2
+V 19
+dir 0-13.0-23.r23/0
+K 12
+experimental
+V 18
+dir c-1.0-21.r21/0
+K 10
+production
+V 17
+dir c-1.0.r33/114
+K 4
+tags
+V 17
+dir h-1.0.r1/2115
+K 7
+top.txt
+V 16
+file 0-2.0.r4/45
+END
+ENDREP
+id: 0.0.r35/887
+type: dir
+pred: 0.0.r34/1312
+count: 35
+text: 35 607 267 267 4a3d25b81d263f62eb4b40c6d4db4e27
+cpath: /
+copyroot: 0 /
+minfo-cnt: 2
+
+c-1.0-12.t34-y modify-dir false true /branches/b234-dummy
+
+
+887 1033
