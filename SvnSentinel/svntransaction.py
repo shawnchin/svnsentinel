@@ -89,8 +89,15 @@ class SVNTransaction(object):
         if not mergeinfo_new or mergeinfo_old == mergeinfo_new:
             return None  # mergeinfo has not changed
 
+        # looks like a merge. Ensure only one changed entry
+        old_set = set(mergeinfo_old.splitlines())
+        new_set = set(mergeinfo_new.splitlines())
+        new_entries = list(new_set - old_set)
+        if len(new_entries) != 1:
+            return None  # Too much has changed
+
         # looks like a merge. Return params in the expected format
-        latest_merge = mergeinfo_new.split("\n")[-1]
+        latest_merge = new_entries[0]
         src, revs = latest_merge.split(":")
         return ("%s/" % src[1:], base, revs.split("-")[-1])
 
