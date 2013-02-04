@@ -10,8 +10,11 @@ from SvnSentinel.exceptions import AllowedOperationException
 
 def check_restricted_paths(svn_txn, cfg):
     c = {}
-    for f in svn_txn.changes.keys():
-        c.setdefault(os.path.dirname(f) + "/", []).append(f)
+    for f, txn in svn_txn.changes.iteritems():
+        # append "/." for directories with property changes so they 
+        # can be detected by pattern matches
+        fname = os.path.join(f, ("", ".")[txn.prop_changed])
+        c.setdefault(os.path.dirname(f) + "/", []).append(fname)
 
     blist = cfg["COMMIT_EXCEPTION_PATHS"]
     taboo_paths = cfg["NO_COMMIT_PATHS"]
